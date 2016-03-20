@@ -1,5 +1,6 @@
 // @flow
 import React           from 'react';
+import AltContainer    from 'alt-container';
 import Notes           from './Notes';
 import NoteActions     from '../actions/NoteActions';
 import NoteStore       from '../stores/NoteStore';
@@ -12,23 +13,7 @@ type State = {
 export default class App extends React.Component<void, {}, State> {
   state: State;
 
-  constructor(props: any, context: any) {
-    super(props, context);
-
-    this.state = NoteStore.getState();
-  }
-
-  componentDidMount() {
-    NoteStore.listen(this.storeChanged);
-  }
-
-  componentWillUnmount() {
-    NoteStore.unlisten(this.storeChanged);
-  }
-
   render(): Object {
-    const notes = this.state.notes;
-
     return (
       <div>
         <button
@@ -37,11 +22,17 @@ export default class App extends React.Component<void, {}, State> {
         >
           +
         </button>
-        <Notes
-          notes    = {notes}
-          onEdit   = {this.editNote}
-          onDelete = {this.deleteNote}
-        />
+        <AltContainer
+          stores={[NoteStore]}
+          inject={{
+            notes: () => NoteStore.getState().notes,
+          }}
+        >
+          <Notes
+            onEdit   = {this.editNote}
+            onDelete = {this.deleteNote}
+          />
+        </AltContainer>
       </div>
     );
   }

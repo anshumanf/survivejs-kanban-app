@@ -4,6 +4,9 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.5
+  * Data persistence via localStorage
+
 0.4
   * Use Alt to manage state and handle actions
   * No declarations file readily available for Alt

@@ -44,7 +44,8 @@
     "keyword-spacing"                    : [2, {"overrides": {
       "if"    : {"after" : false},
       "for"   : {"after" : false},
-      "while" : {"after" : false}
+      "while" : {"after" : false},
+      "catch" : {"after" : false},
     }}],
     "linebreak-style"                    : [2, "unix"],
     "new-cap"                            : 0,
