@@ -135,8 +135,8 @@
     "react/sort-comp"                    : [2, {
       "order" : [
         "lifecycle",
+        "render",
         "everything-else",
-        "render"
       ],
       "groups" : {
         "lifecycle": [

@@ -1,3 +1,4 @@
+// @flow
 import './main.css';
 
 import React from 'react';

@@ -9,6 +9,14 @@
       "presets": [
         "react-hmre",
       ],
+      "plugins": [
+        "typecheck",
+      ],
     },
+    "build" : {
+      "plugins": [
+        "transform-flow-strip-types",
+      ],
+    }
   },
 }
