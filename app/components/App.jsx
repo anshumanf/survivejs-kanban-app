@@ -1,7 +1,8 @@
 // @flow
-import uuid            from 'node-uuid';
 import React           from 'react';
 import Notes           from './Notes';
+import NoteActions     from '../actions/NoteActions';
+import NoteStore       from '../stores/NoteStore';
 import type {NoteType} from '../types/types';
 
 type State = {
@@ -14,18 +15,15 @@ export default class App extends React.Component<void, {}, State> {
   constructor(props: any, context: any) {
     super(props, context);
 
-    this.state = {
-      notes : [{
-        id   : uuid.v4(),
-        task : 'Learn Webpack',
-      }, {
-        id   : uuid.v4(),
-        task : 'Learn React',
-      }, {
-        id   : uuid.v4(),
-        task : 'Do laundry',
-      }],
-    };
+    this.state = NoteStore.getState();
+  }
+
+  componentDidMount() {
+    NoteStore.listen(this.storeChanged);
+  }
+
+  componentWillUnmount() {
+    NoteStore.unlisten(this.storeChanged);
   }
 
   render(): Object {
@@ -48,13 +46,12 @@ export default class App extends React.Component<void, {}, State> {
     );
   }
 
+  storeChanged: (state: State) => void = (state) => {
+    this.setState(state);
+  };
+
   addNote: () => void = () => {
-    this.setState({
-      notes: [...this.state.notes, {
-        id   : uuid.v4(),
-        task : 'New task',
-      }],
-    });
+    NoteActions.create({task: 'New task'});
   };
 
   editNote: (id: string, task: string) => void = (id, task) => {
@@ -62,21 +59,11 @@ export default class App extends React.Component<void, {}, State> {
       return;
     }
 
-    const notes = this.state.notes.map(note => {
-      if(note.id === id)  {
-        note.task = task;
-      }
-      return note;
-    });
-
-    this.setState({notes});
+    NoteActions.update({id, task});
   };
 
   deleteNote: (id: string, e: Object) => void = (id, e) => {
     e.stopPropagation();
-
-    this.setState({
-      notes: this.state.notes.filter(note => note.id !== id),
-    });
+    NoteActions.delete(id);
   };
 }

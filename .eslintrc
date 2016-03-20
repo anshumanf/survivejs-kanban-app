@@ -18,6 +18,8 @@
   "plugins": [
     "babel",
     "react",
+    "flow-vars",
+    "flowtype",
   ],
 
   "rules":  {
@@ -34,6 +36,8 @@
     "dot-notation"                       : [2, {"allowKeywords": true, "allowPattern": ""}],
     "eol-last"                           : 2,
     "eqeqeq"                             : 2,
+    "flow-vars/define-flow-type"         : 2,
+    "flow-vars/use-flow-type"            : 2,
     "indent"                             : [2, 2, {"SwitchCase": 1, "VariableDeclarator": 1}],
     "jsx-quotes"                         : [2, "prefer-double"],
     "key-spacing"                        : 0,

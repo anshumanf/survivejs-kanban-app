@@ -4,6 +4,11 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.4
+  * Use Alt to manage state and handle actions
+  * No declarations file readily available for Alt
+  * Converting from TypeScript definitions is infeasible at this time
+
 0.3
   * Transition from PropTypes to Flow annotations
   * Issue encountered in annotating return type of functional components and render() method of ES6 class components
