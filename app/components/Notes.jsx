@@ -1,19 +1,19 @@
 // @flow
-import React, {PropTypes} from 'react';
-import KanbanPropTypes    from '../propTypes/Kanban';
-import Note               from './Note';
+import React           from 'react';
+import Note            from './Note';
+import type {NoteType} from '../types/types';
 
-const propTypes = {
-  notes    : PropTypes.arrayOf(KanbanPropTypes.Note).isRequired,
-  onEdit   : PropTypes.func.isRequired,
-  onDelete : PropTypes.func.isRequired,
+type Props = {
+  notes    : Array<NoteType>,
+  onEdit   : Function,
+  onDelete : Function,
 };
 
 const Notes = ({
   notes,
   onEdit,
   onDelete,
-}) => {
+}: Props): Object => {
   return (
     <ul>{notes.map(note =>
       <li
@@ -29,7 +29,5 @@ const Notes = ({
     )}</ul>
   );
 };
-
-Notes.propTypes = propTypes;
 
 export default Notes;

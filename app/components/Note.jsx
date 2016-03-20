@@ -1,22 +1,28 @@
 // @flow
-import React, {PropTypes} from 'react';
+import React from 'react';
 
-const propTypes = {
-  task     : PropTypes.string.isRequired,
-  onEdit   : PropTypes.func.isRequired,
-  onDelete : PropTypes.func.isRequired,
+type Props = {
+  task     : string,
+  onEdit   : Function,
+  onDelete : Function,
 };
 
-class Note extends React.Component {
-  constructor(props) {
-    super(props);
+type State = {
+  editing : boolean,
+};
+
+class Note extends React.Component<void, Props, State> {
+  state: State;
+
+  constructor(props: Props, context: any) {
+    super(props, context);
 
     this.state = {
       editing: false,
     };
   }
 
-  render()  {
+  render(): Object  {
     let retJsX = null;
 
     if(this.state.editing)  {
@@ -28,7 +34,7 @@ class Note extends React.Component {
     return retJsX;
   }
 
-  renderEdit = () => {
+  renderEdit: () => React.Element = () => {
     return (
       <input
         ref          = {
@@ -42,7 +48,7 @@ class Note extends React.Component {
     );
   };
 
-  renderNote = () => {
+  renderNote: () => React.Element = () => {
     const onDelete = this.props.onDelete;
     return (
       <div
@@ -54,7 +60,7 @@ class Note extends React.Component {
     );
   };
 
-  renderDelete = () => {
+  renderDelete: () => React.Element = () => {
     return (
       <button
         className = "delete-note"
@@ -65,7 +71,7 @@ class Note extends React.Component {
     );
   };
 
-  finishEdit = (e) => {
+  finishEdit: (e: Object) => void = (e) => {
     const value = e.target.value;
 
     if(this.props.onEdit) {
@@ -77,19 +83,17 @@ class Note extends React.Component {
     }
   };
 
-  checkEnter = (e) => {
+  checkEnter: (e: Object) => void = (e) => {
     if(e.key === 'Enter') {
       this.finishEdit(e);
     }
   };
 
-  edit = () => {
+  edit: () => void = () => {
     this.setState({
       editing: true,
     });
   };
 }
-
-Note.propTypes = propTypes;
 
 export default Note;

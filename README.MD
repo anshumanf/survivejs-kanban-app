@@ -4,6 +4,10 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.3
+  * Transition from PropTypes to Flow annotations
+  * Issue encountered in annotating return type of functional components and render() method of ES6 class components
+
 0.2
   * Add / remove / edit notes
   * Custom propTypes (ran into some [limitations](https://github.com/facebook/react/issues/4811))

@@ -1,11 +1,18 @@
 // @flow
-import uuid  from 'node-uuid';
-import React from 'react';
-import Notes from './Notes';
+import uuid            from 'node-uuid';
+import React           from 'react';
+import Notes           from './Notes';
+import type {NoteType} from '../types/types';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
+type State = {
+  notes: Array<NoteType>
+};
+
+export default class App extends React.Component<void, {}, State> {
+  state: State;
+
+  constructor(props: any, context: any) {
+    super(props, context);
 
     this.state = {
       notes : [{
@@ -21,7 +28,7 @@ export default class App extends React.Component {
     };
   }
 
-  render() {
+  render(): Object {
     const notes = this.state.notes;
 
     return (
@@ -41,7 +48,7 @@ export default class App extends React.Component {
     );
   }
 
-  addNote = () => {
+  addNote: () => void = () => {
     this.setState({
       notes: [...this.state.notes, {
         id   : uuid.v4(),
@@ -50,7 +57,7 @@ export default class App extends React.Component {
     });
   };
 
-  editNote = (id, task) => {
+  editNote: (id: string, task: string) => void = (id, task) => {
     if(!task.trim())  {
       return;
     }
@@ -65,7 +72,7 @@ export default class App extends React.Component {
     this.setState({notes});
   };
 
-  deleteNote = (id, e) => {
+  deleteNote: (id: string, e: Object) => void = (id, e) => {
     e.stopPropagation();
 
     this.setState({
