@@ -4,6 +4,10 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.6
+  * Associate note with lanes
+  * Add lanes
+
 0.5
   * Data persistence via localStorage
 
@@ -22,4 +26,5 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 0.1
   * Basic app with Webpack configured with HMR for JavaScript (including React components) and CSS
+  * Displays a fixed list of notes
   * My favorite ESlint configuration is included

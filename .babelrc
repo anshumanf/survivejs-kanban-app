@@ -4,9 +4,6 @@
     "react",
     "survivejs-kanban",
   ],
-  "plugins": [
-    "transform-flow-strip-types",
-  ],
   "env": {
     "start": {
       "presets": [

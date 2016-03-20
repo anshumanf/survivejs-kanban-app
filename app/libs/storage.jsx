@@ -1,12 +1,22 @@
+// @flow
 export default {
-  get(k) {
+  get(k: string): ?string {
     try {
-      return JSON.parse(localStorage.getItem(k));
+      let val = localStorage.getItem(k);
+      if(
+        typeof val !== 'undefined'
+        &&
+        val !== null
+      )  {
+        return JSON.parse(val);
+      } else {
+        return null;
+      }
     } catch(e) {
       return null;
     }
   },
-  set(k, v) {
+  set(k: string, v: string): void {
     localStorage.setItem(k, JSON.stringify(v));
   },
 };

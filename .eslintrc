@@ -150,6 +150,7 @@
           "contextTypes",
           "childContextTypes",
           "defaultProps",
+          "props",
           "state",
           "constructor",
           "getStores",

@@ -1,60 +1,33 @@
 // @flow
 import React           from 'react';
 import AltContainer    from 'alt-container';
-import Notes           from './Notes';
-import NoteActions     from '../actions/NoteActions';
-import NoteStore       from '../stores/NoteStore';
-import type {NoteType} from '../types/types';
+import Lanes           from './Lanes.jsx';
+import LaneActions     from '../actions/LaneActions';
+import LaneStore       from '../stores/LaneStore';
 
-type State = {
-  notes: Array<NoteType>
-};
-
-export default class App extends React.Component<void, {}, State> {
-  state: State;
-
+export default class App extends React.Component<void, {}, void> {
   render(): Object {
     return (
       <div>
         <button
-          className = "add-note"
-          onClick   = {this.addNote}
+          className = "add-lane"
+          onClick   = {this.addLane}
         >
           +
         </button>
         <AltContainer
-          stores={[NoteStore]}
+          stores={[LaneStore]}
           inject={{
-            notes: () => NoteStore.getState().notes,
+            lanes: () => LaneStore.getState().lanes,
           }}
         >
-          <Notes
-            onEdit   = {this.editNote}
-            onDelete = {this.deleteNote}
-          />
+          <Lanes />
         </AltContainer>
       </div>
     );
   }
 
-  storeChanged: (state: State) => void = (state) => {
-    this.setState(state);
-  };
-
-  addNote: () => void = () => {
-    NoteActions.create({task: 'New task'});
-  };
-
-  editNote: (id: string, task: string) => void = (id, task) => {
-    if(!task.trim())  {
-      return;
-    }
-
-    NoteActions.update({id, task});
-  };
-
-  deleteNote: (id: string, e: Object) => void = (id, e) => {
-    e.stopPropagation();
-    NoteActions.delete(id);
+  addLane: () => void = () => {
+    LaneActions.create({name: 'New lane'});
   };
 }
