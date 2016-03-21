@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 import makeFinalStore from 'alt-utils/lib/makeFinalStore';
 
 type StorageType = {

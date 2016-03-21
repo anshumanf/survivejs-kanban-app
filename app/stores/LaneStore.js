@@ -1,5 +1,6 @@
-// @flow
+/* @flow */
 import uuid            from 'node-uuid';
+import update          from 'react-addons-update';
 import alt             from '../libs/alt';
 import LaneActions     from '../actions/LaneActions';
 import type {LaneType} from '../types/types';
@@ -63,6 +64,29 @@ class LaneStore {
       }
       return lane;
     });
+    this.setState({lanes});
+  }
+
+  move({sourceId, targetId})  {
+    const
+      lanes           = this.lanes,
+      sourceLane      = lanes.filter(lane => lane.notes.includes(sourceId))[0],
+      targetLane      = lanes.filter(lane => lane.notes.includes(targetId))[0],
+      sourceNoteIndex = sourceLane.notes.indexOf(sourceId),
+      targetNoteIndex = sourceLane.notes.indexOf(targetId);
+
+    if(sourceLane === targetLane) {
+      sourceLane.notes = update(sourceLane.notes, {
+        $splice: [
+          [sourceNoteIndex, 1],
+          [targetNoteIndex, 0, sourceId],
+        ],
+      });
+    } else {
+      sourceLane.notes.splice(sourceNoteIndex, 1);
+      targetLane.notes.splice(targetNoteIndex, 0, sourceId);
+    }
+
     this.setState({lanes});
   }
 }

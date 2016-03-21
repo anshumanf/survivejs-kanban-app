@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 import AltContainer    from 'alt-container';
 import React           from 'react';
 import Editable        from './Editable';

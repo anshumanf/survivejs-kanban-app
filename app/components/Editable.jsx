@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 import selectn from 'selectn';
 import React   from 'react';
 

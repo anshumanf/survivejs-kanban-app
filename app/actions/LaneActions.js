@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 import alt from '../libs/alt';
 
 export default alt.generateActions(...[
@@ -7,4 +7,5 @@ export default alt.generateActions(...[
   'delete',
   'attachToLane',
   'detachFromLane',
+  'move',
 ]);

@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 /* eslint-disable no-unused-vars */
 
 declare module CSSModule {

@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 export default {
   get(k: string): ?string {
     try {

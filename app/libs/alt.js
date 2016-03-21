@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 import Alt from 'alt';
 import chromeDebug from 'alt-utils/lib/chromeDebug';
 
