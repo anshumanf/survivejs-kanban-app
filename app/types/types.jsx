@@ -1,12 +1,14 @@
 // @flow
 
 export type NoteType = {
-  id   : string,
-  task : string,
+  id      : string,
+  editing : boolean | void,
+  task    : string,
 };
 
 export type LaneType = {
-  id    : string,
-  name  : string,
-  notes : Array<string>,
+  id      : string,
+  editing : boolean | void,
+  name    : string,
+  notes   : Array<string>,
 };

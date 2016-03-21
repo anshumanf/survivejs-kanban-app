@@ -4,6 +4,10 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.7
+  * Edit lane name
+  * Delete lanes
+
 0.6
   * Associate note with lanes
   * Add lanes
