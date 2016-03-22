@@ -4,6 +4,9 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.8
+  * Reorder notes within a lane or move notes between lanes via drag-and-drop
+
 0.7
   * Edit lane name
   * Delete lanes

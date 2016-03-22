@@ -7,7 +7,13 @@ import {
 import ItemTypes    from '../constants/itemTypes';
 
 type Props = {
-  children: any,
+  connectDragSource : () => any,
+  connectDropTarget : () => any,
+  isDragging        : boolean,
+  id                : string,
+  editing           : boolean | void,
+  onMove            : () => any,
+  children          : any,
 };
 
 const noteSource = {
@@ -34,37 +40,22 @@ const noteTarget = {
   },
 };
 
-@DragSource(
-  ItemTypes.NOTE,
-  noteSource,
-  (connect, monitor) => ({
-    connectDragSource : connect.dragSource(),
-    isDragging        : monitor.isDragging(),
-  })
-)
-@DropTarget(
-  ItemTypes.NOTE,
-  noteTarget,
-  (connect) => ({
-    connectDropTarget : connect.dropTarget(),
-  })
-)
-export default class Note extends React.Component<void, Props, void> {
+class Note extends React.Component<void, Props, void> {
   props: Props;
   render() {
     /* eslint-disable no-unused-vars */
-    /* eslint-disable react/prop-types */
     const {
       connectDragSource,
       connectDropTarget,
       isDragging,
       id,
+      editing,
       onMove,
       ...props,
     } = this.props;
-    /* eslint-enable react/prop-types */
     /* eslint-enable no-unused-vars */
-    return connectDragSource(connectDropTarget(
+    const dragSource = editing ? x => x : connectDragSource;
+    return dragSource(connectDropTarget(
       <li
         {...props}
         style={{
@@ -76,3 +67,20 @@ export default class Note extends React.Component<void, Props, void> {
     ));
   }
 }
+
+export default DragSource(
+  ItemTypes.NOTE,
+  noteSource,
+  (connect, monitor) => ({
+    connectDragSource : connect.dragSource(),
+    isDragging        : monitor.isDragging(),
+  })
+)(
+  DropTarget(
+    ItemTypes.NOTE,
+    noteTarget,
+    (connect) => ({
+      connectDropTarget : connect.dropTarget(),
+    })
+  )(Note)
+);

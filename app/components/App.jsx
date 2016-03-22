@@ -7,8 +7,8 @@ import Lanes             from './Lanes.jsx';
 import LaneActions       from '../actions/LaneActions';
 import LaneStore         from '../stores/LaneStore';
 
-@DragDropContext(HTML5Backend)
-export default class App extends React.Component<void, {}, void> {
+
+class App extends React.Component<void, {}, void> {
   render(): Object {
     return (
       <div>
@@ -34,3 +34,5 @@ export default class App extends React.Component<void, {}, void> {
     LaneActions.create({name: 'New lane'});
   };
 }
+
+export default DragDropContext(HTML5Backend)(App);
