@@ -20038,11 +20038,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
 
 	var _react = __webpack_require__(5);
 
@@ -20078,7 +20075,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var App = (_dec = (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default), _dec(_class = function (_React$Component) {
+	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 
 	  function App() {
@@ -20128,8 +20125,9 @@
 	  }]);
 
 	  return App;
-	}(_react2.default.Component)) || _class);
-	exports.default = App;
+	}(_react2.default.Component);
+
+	exports.default = (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(App);
 
 /***/ },
 /* 164 */
@@ -28559,7 +28557,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -28571,11 +28568,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Editable = __webpack_require__(318);
+	var _reactDnd = __webpack_require__(176);
+
+	var _itemTypes = __webpack_require__(318);
+
+	var _itemTypes2 = _interopRequireDefault(_itemTypes);
+
+	var _Editable = __webpack_require__(319);
 
 	var _Editable2 = _interopRequireDefault(_Editable);
 
-	var _Notes = __webpack_require__(329);
+	var _Notes = __webpack_require__(330);
 
 	var _Notes2 = _interopRequireDefault(_Notes);
 
@@ -28600,6 +28603,20 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var noteTarget = {
+	  hover: function hover(targetProps, monitor) {
+	    var sourceProps = monitor.getItem(),
+	        sourceId = sourceProps.id;
+
+	    if (!targetProps.lane.notes.length) {
+	      _LaneActions2.default.attachToLane({
+	        laneId: targetProps.lane.id,
+	        noteId: sourceId
+	      });
+	    }
+	  }
+	};
 
 	var Lane = function (_React$Component) {
 	  _inherits(Lane, _React$Component);
@@ -28662,11 +28679,12 @@
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
+	      var connectDropTarget = _props.connectDropTarget;
 	      var lane = _props.lane;
 
-	      var props = _objectWithoutProperties(_props, ['lane']);
+	      var props = _objectWithoutProperties(_props, ['connectDropTarget', 'lane']);
 
-	      return _react2.default.createElement(
+	      return connectDropTarget(_react2.default.createElement(
 	        'div',
 	        props,
 	        _react2.default.createElement(
@@ -28713,17 +28731,34 @@
 	            onDelete: this.deleteNote
 	          })
 	        )
-	      );
+	      ));
 	    }
 	  }]);
 
 	  return Lane;
 	}(_react2.default.Component);
 
-	exports.default = Lane;
+	exports.default = (0, _reactDnd.DropTarget)(_itemTypes2.default.NOTE, noteTarget, function (connect) {
+	  return {
+	    connectDropTarget: connect.dropTarget()
+	  };
+	})(Lane);
 
 /***/ },
 /* 318 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  NOTE: 'note'
+	};
+
+/***/ },
+/* 319 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28734,7 +28769,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _selectn = __webpack_require__(319);
+	var _selectn = __webpack_require__(320);
 
 	var _selectn2 = _interopRequireDefault(_selectn);
 
@@ -28839,7 +28874,7 @@
 	exports.default = Editable;
 
 /***/ },
-/* 319 */
+/* 320 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -28848,9 +28883,9 @@
 	 * imports.
 	 */
 
-	var dotted = __webpack_require__(320)
-	var splits = __webpack_require__(321)
-	var curry2 = __webpack_require__(326)
+	var dotted = __webpack_require__(321)
+	var splits = __webpack_require__(322)
+	var curry2 = __webpack_require__(327)
 	var string = Object.prototype.toString
 
 	/**
@@ -28891,7 +28926,7 @@
 
 
 /***/ },
-/* 320 */
+/* 321 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28938,7 +28973,7 @@
 
 
 /***/ },
-/* 321 */
+/* 322 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -28947,8 +28982,8 @@
 	 * imports.
 	 */
 
-	var dotted = __webpack_require__(322)(todots)
-	var compact = __webpack_require__(325)(String)
+	var dotted = __webpack_require__(323)(todots)
+	var compact = __webpack_require__(326)(String)
 	var toString = Object.prototype.toString
 
 	/*!
@@ -29010,7 +29045,7 @@
 
 
 /***/ },
-/* 322 */
+/* 323 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -29019,8 +29054,8 @@
 	 * imports.
 	 */
 
-	var curry2 = __webpack_require__(323)
-	var selectn = __webpack_require__(324)
+	var curry2 = __webpack_require__(324)
+	var selectn = __webpack_require__(325)
 
 	/*!
 	 * exports.
@@ -29056,7 +29091,7 @@
 
 
 /***/ },
-/* 323 */
+/* 324 */
 /***/ function(module, exports) {
 
 	'use strict'
@@ -29096,7 +29131,7 @@
 
 
 /***/ },
-/* 324 */
+/* 325 */
 /***/ function(module, exports) {
 
 	/*!
@@ -29172,7 +29207,7 @@
 
 
 /***/ },
-/* 325 */
+/* 326 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -29181,14 +29216,14 @@
 	 * imports.
 	 */
 
-	var curry2 = __webpack_require__(326)
-	var selectn = __webpack_require__(319)
+	var curry2 = __webpack_require__(327)
+	var selectn = __webpack_require__(320)
 
 	/*!
 	 * imports (local).
 	 */
 
-	var expressions = __webpack_require__(328)
+	var expressions = __webpack_require__(329)
 
 	/*!
 	 * exports.
@@ -29260,7 +29295,7 @@
 
 
 /***/ },
-/* 326 */
+/* 327 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -29269,7 +29304,7 @@
 	 * imports.
 	 */
 
-	var bind = Function.prototype.bind || __webpack_require__(327)
+	var bind = Function.prototype.bind || __webpack_require__(328)
 
 	/*!
 	 * exports.
@@ -29308,7 +29343,7 @@
 
 
 /***/ },
-/* 327 */
+/* 328 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29358,7 +29393,7 @@
 
 
 /***/ },
-/* 328 */
+/* 329 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict'
@@ -29367,7 +29402,7 @@
 	 * imports.
 	 */
 
-	var selectn = __webpack_require__(319)
+	var selectn = __webpack_require__(320)
 
 	/*!
 	 * exports.
@@ -29464,7 +29499,7 @@
 
 
 /***/ },
-/* 329 */
+/* 330 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29477,11 +29512,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Note = __webpack_require__(330);
+	var _Note = __webpack_require__(331);
 
 	var _Note2 = _interopRequireDefault(_Note);
 
-	var _Editable = __webpack_require__(318);
+	var _Editable = __webpack_require__(319);
 
 	var _Editable2 = _interopRequireDefault(_Editable);
 
@@ -29507,6 +29542,7 @@
 	          className: 'note',
 	          id: note.id,
 	          key: note.id,
+	          editing: note.editing,
 	          onMove: _LaneActions2.default.move
 	        },
 	        _react2.default.createElement(_Editable2.default, {
@@ -29524,7 +29560,7 @@
 	exports.default = Notes;
 
 /***/ },
-/* 330 */
+/* 331 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29532,13 +29568,10 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _dec2, _class;
 
 	var _react = __webpack_require__(5);
 
@@ -29546,7 +29579,7 @@
 
 	var _reactDnd = __webpack_require__(176);
 
-	var _itemTypes = __webpack_require__(331);
+	var _itemTypes = __webpack_require__(318);
 
 	var _itemTypes2 = _interopRequireDefault(_itemTypes);
 
@@ -29583,16 +29616,7 @@
 	  }
 	};
 
-	var Note = (_dec = (0, _reactDnd.DragSource)(_itemTypes2.default.NOTE, noteSource, function (connect, monitor) {
-	  return {
-	    connectDragSource: connect.dragSource(),
-	    isDragging: monitor.isDragging()
-	  };
-	}), _dec2 = (0, _reactDnd.DropTarget)(_itemTypes2.default.NOTE, noteTarget, function (connect) {
-	  return {
-	    connectDropTarget: connect.dropTarget()
-	  };
-	}), _dec(_class = _dec2(_class = function (_React$Component) {
+	var Note = function (_React$Component) {
 	  _inherits(Note, _React$Component);
 
 	  function Note() {
@@ -29605,20 +29629,22 @@
 	    key: 'render',
 	    value: function render() {
 	      /* eslint-disable no-unused-vars */
-	      /* eslint-disable react/prop-types */
 	      var _props = this.props;
 	      var connectDragSource = _props.connectDragSource;
 	      var connectDropTarget = _props.connectDropTarget;
 	      var isDragging = _props.isDragging;
 	      var id = _props.id;
+	      var editing = _props.editing;
 	      var onMove = _props.onMove;
 
-	      var props = _objectWithoutProperties(_props, ['connectDragSource', 'connectDropTarget', 'isDragging', 'id', 'onMove']);
-	      /* eslint-enable react/prop-types */
+	      var props = _objectWithoutProperties(_props, ['connectDragSource', 'connectDropTarget', 'isDragging', 'id', 'editing', 'onMove']);
 	      /* eslint-enable no-unused-vars */
 
 
-	      return connectDragSource(connectDropTarget(_react2.default.createElement(
+	      var dragSource = editing ? function (x) {
+	        return x;
+	      } : connectDragSource;
+	      return dragSource(connectDropTarget(_react2.default.createElement(
 	        'li',
 	        _extends({}, props, {
 	          style: {
@@ -29631,21 +29657,18 @@
 	  }]);
 
 	  return Note;
-	}(_react2.default.Component)) || _class) || _class);
-	exports.default = Note;
+	}(_react2.default.Component);
 
-/***/ },
-/* 331 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  NOTE: 'note'
-	};
+	exports.default = (0, _reactDnd.DragSource)(_itemTypes2.default.NOTE, noteSource, function (connect, monitor) {
+	  return {
+	    connectDragSource: connect.dragSource(),
+	    isDragging: monitor.isDragging()
+	  };
+	})((0, _reactDnd.DropTarget)(_itemTypes2.default.NOTE, noteTarget, function (connect) {
+	  return {
+	    connectDropTarget: connect.dropTarget()
+	  };
+	})(Note));
 
 /***/ },
 /* 332 */
@@ -35706,6 +35729,12 @@
 	      var noteId = _ref.noteId;
 
 	      var lanes = this.lanes.map(function (lane) {
+	        if (lane.notes.indexOf(noteId) !== -1) {
+	          lane.notes = lane.notes.filter(function (id) {
+	            return id !== noteId;
+	          });
+	        }
+
 	        if (lane.id === laneId) {
 	          if (lane.notes.indexOf(noteId) !== -1) {
 	            /* eslint-disable no-console */
