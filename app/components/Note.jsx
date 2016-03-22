@@ -48,8 +48,8 @@ class Note extends React.Component<void, Props, void> {
       connectDragSource,
       connectDropTarget,
       isDragging,
-      id,
       editing,
+      id,
       onMove,
       ...props,
     } = this.props;

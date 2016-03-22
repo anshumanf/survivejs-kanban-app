@@ -4,6 +4,14 @@ A Kanban app built by following the instructions in the [SurviveJS book](https:/
 
 ## Changelog
 
+0.9
+  * For production build:
+    * Uglify JavaScript
+    * Separate bundles for app and vendor JavaScript
+    * Separate CSS file
+    * Cache invalidation using hashes as part of JS / CSS filenames
+    * Auto-generate index.html
+
 0.8
   * Reorder notes within a lane or move notes between lanes via drag-and-drop
 
